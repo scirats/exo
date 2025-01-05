@@ -17,7 +17,7 @@ func property(props []*Property, name string) *Property {
 		}
 	}
 
-	panic(fmt.Sprintf("`%s` property is not defined", name))
+	return nil
 }
 
 type Config struct {
@@ -36,6 +36,10 @@ func (c *Config) String(name string) string {
 
 func (c *Config) StringList(name string) []string {
 	p := property(c.Properties, name)
+	if p == nil {
+		panic(fmt.Sprintf("`%s` property is not defined", name))
+	}
+
 	return p.Value.([]string)
 }
 
@@ -66,6 +70,10 @@ func (b *Block) String(name string) string {
 
 func (b *Block) StringList(name string) []string {
 	p := property(b.Properties, name)
+	if p == nil {
+		panic(fmt.Sprintf("`%s` property is not defined", name))
+	}
+
 	return p.Value.([]string)
 }
 
